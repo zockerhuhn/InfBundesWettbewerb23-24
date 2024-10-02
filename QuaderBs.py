@@ -22,7 +22,7 @@ while not found:
     print(runs)
     runsTemp = runs
     for i in runs:
-        reached = i.len()-1
+        reached = len(i)-1
         if not quaderIsOpen[reached]:
             runsTemp.remove(i)
             continue
