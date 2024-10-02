@@ -10,5 +10,14 @@ found = False
 loop = 0
 while not found:
     if quaderIsOpen[0]:
-        runs = np.append(runs, [loop][loop])
-    
+        runs = np.append(runs, [loop][loop], 0)
+        print(runs)
+    for x in range(len(quaderIsOpen)):
+        if loop%quaderTimes[x]==0 and loop>0:
+            if quaderIsOpen[x]==True:
+                quaderIsOpen[x]=False
+            else:
+                quaderIsOpen[x]=True
+    loop+=1
+    if loop<=50:
+        found=True
