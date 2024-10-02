@@ -19,5 +19,5 @@ while not found:
             else:
                 quaderIsOpen[x]=True
     loop+=1
-    if loop<=50:
+    if loop>=50:
         found=True
