@@ -1,7 +1,11 @@
 from copy import deepcopy
 
 quaderIsOpen = []
-quaderTimes = [5,8,12]
+quaderTimes = []
+with open("input.txt", 'r') as inputs:
+    inputs = inputs.read().split("\n")
+    for value in inputs:
+        quaderTimes.append(int(value))
 runs = [[],[]]
 for i in quaderTimes:
     quaderIsOpen.append(False)
@@ -36,7 +40,8 @@ while not found:
                 found=True
                 break
     runs = deepcopy(runsTemp)
-    print(runs)
+    #print(runs)
     loop+=1
     if loop>=50:
         found=True
+print(runs)
