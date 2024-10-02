@@ -2,7 +2,7 @@ from copy import deepcopy
 
 quaderIsOpen = []
 quaderTimes = []
-with open("input.txt", 'r') as inputs:
+with open("grabmal3.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
     for value in inputs:
         quaderTimes.append(int(value))
@@ -22,7 +22,9 @@ while not found:
     if quaderIsOpen[0]:
         runs.append([loop])
     runsTemp = deepcopy(runs)
+    test=0
     for i in runs:
+        test+=1
         reached = len(i)-1
         if not quaderIsOpen[reached]:
             runsTemp.remove(i)
@@ -42,6 +44,6 @@ while not found:
     runs = deepcopy(runsTemp)
     #print(runs)
     loop+=1
-    if loop>=50:
-        found=True
+    if loop%1000==0:
+        print(loop, runs)
 print(runs)
