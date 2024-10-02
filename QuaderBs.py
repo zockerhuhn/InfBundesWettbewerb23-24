@@ -2,7 +2,7 @@ import numpy as np
 
 quaderIsOpen = []
 quaderTimes = [5,8,12]
-runs = np.array([[0, 1], [0, 1]], int)
+runs = np.array([[0, 1], [2, 3]], int)
 for i in quaderTimes:
     quaderIsOpen.append(False)
 
