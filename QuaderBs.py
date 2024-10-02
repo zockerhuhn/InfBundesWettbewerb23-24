@@ -19,7 +19,6 @@ while not found:
     if quaderIsOpen[0]:
         #runs = np.append(runs, loop)
         runs.append([loop])
-    print(runs)
     runsTemp = runs
     for i in runs:
         reached = len(i)-1
@@ -32,6 +31,7 @@ while not found:
             if reached+1==len(quaderTimes)-1:
                 print(i)
                 found=True
+    print(runs)
     loop+=1
     if loop>=50:
         found=True
