@@ -41,5 +41,5 @@ while not found:
                      except Exeption():
                          pass
                 if not isContained:
-                    reachedTimes
+                    reachedTimes.append()
     
