@@ -4,7 +4,7 @@ quaderIsOpen = []
 quaderTimes = []
 reachedTimes = []
 isActive = []
-with open("grabmal5.txt", 'r') as inputs:
+with open("grabmal4.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
     for value in inputs:
         if value != '':
