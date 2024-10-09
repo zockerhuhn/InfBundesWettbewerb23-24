@@ -25,14 +25,14 @@ def find_active(startNr, searchLeft=True, searchRight=True):
             if not quaderIsOpen[startNr+q+1]:
                 searchRight=False            
         except Exception:
-            pass
+            searchRight=False
         try:
             if searchLeft and isActive[startNr-1-q] and quaderIsOpen[startNr-1-q]:
                 return True
             if not quaderIsOpen[startNr-1-q]:
                 searchLeft=False
         except Exception:
-            pass
+            searchLeft=False 
         if not (searchLeft or searchRight):
                 return False
         
