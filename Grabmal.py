@@ -75,7 +75,7 @@ changeHappenedAt.reverse()
 tempTime = changeHappenedAt[0]
 tempQuader = len(reachedTimes)-1
 timesForPrinting = [tempTime]
-quadersForPrinting = [tempQuader]
+quadersForPrinting = [tempQuader+1]
 reachedTimes.reverse()
 reachedTimes.pop(0)
 currentMaxLen = 2
@@ -83,29 +83,30 @@ right = True
 left = True
 while currentMaxLen > 1:
     currentMaxLen = 0
+    startingPoint = quadersForPrinting[len(quadersForPrinting)-1]-1
     for w in range(len(reachedTimes)):
         if right:
             try:
-                if len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1][max(len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])-1, 0)]) == 2:
+                if len(reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1]) == 2:
                     right=False
                     continue
-                if len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])-1]) == 1 and reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])-1] != [tempTime]:
-                    if len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])> currentMaxLen and reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])-1][0] < tempTime:
-                        tempTime2 = reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])-1][0]
-                        currentMaxLen = len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])
-                        tempQuader = len(reachedTimes)-w+quadersForPrinting[len(quadersForPrinting)-1]-1
+                if len(reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1]) == 1 and reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1] != [tempTime]:
+                    if len(reachedTimes[w+startingPoint])> currentMaxLen and reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0] < tempTime:
+                        tempTime2 = reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0]
+                        currentMaxLen = len(reachedTimes[w+startingPoint])
+                        tempQuader = len(reachedTimes)-w+startingPoint
             except Exception:
                 right=False
         if left:
             try:
-                if len(reachedTimes[w-quadersForPrinting[len(quadersForPrinting)-1]-1][max(len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])-1, 0)]) == 2:
+                if len(reachedTimes[w-startingPoint][max(len(reachedTimes[1-w-startingPoint])-1, 0)]) == 2:
                     right=False
                     continue
-                if len(reachedTimes[w-quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])-1]) == 1 and reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])-1] != [tempTime]:
-                    if len(reachedTimes[w-quadersForPrinting[len(quadersForPrinting)-1]-1])> currentMaxLen and reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])-1][0] < tempTime:
-                        tempTime2 = reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])-1][0]
-                        currentMaxLen = len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])
-                        tempQuader = len(reachedTimes)-1-w-quadersForPrinting[len(quadersForPrinting)-1]-1
+                if len(reachedTimes[w-startingPoint][len(reachedTimes[1-w-startingPoint])-1]) == 1 and reachedTimes[1-w-startingPoint][len(reachedTimes[1-w-startingPoint])-1] != [tempTime]:
+                    if len(reachedTimes[w-startingPoint])> currentMaxLen and reachedTimes[1-w-startingPoint][len(reachedTimes[1-w-startingPoint])-1][0] < tempTime:
+                        tempTime2 = reachedTimes[1-w-startingPoint][len(reachedTimes[1-w-startingPoint])-1][0]
+                        currentMaxLen = len(reachedTimes[1-w-startingPoint])
+                        tempQuader = len(reachedTimes)-1-w-startingPoint
             except Exception:
                 left=False
     tempTime = tempTime2
