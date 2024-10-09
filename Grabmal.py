@@ -5,7 +5,7 @@ quaderTimes = []
 reachedTimes = []
 isActive = []
 changeHappenedAt = []
-with open("grabmal1.txt", 'r') as inputs:
+with open("input.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
     for value in inputs:
         quaderTimes.append(int(value))
