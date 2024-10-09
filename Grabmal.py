@@ -5,7 +5,7 @@ quaderTimes = []
 reachedTimes = []
 isActive = []
 changeHappenedAt = []
-with open("input.txt", 'r') as inputs:
+with open("grabmal3.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
     for value in inputs:
         if value != '':
@@ -31,7 +31,7 @@ def find_active(startNr, searchLeft=True, searchRight=True):
                 return True
             if not quaderIsOpen[startNr-1-q]:
                 searchLeft=False
-        except Exeption:
+        except Exception:
             pass
         if not (searchLeft or searchRight):
                 return False
@@ -79,20 +79,41 @@ quadersForPrinting = [tempQuader]
 reachedTimes.reverse()
 reachedTimes.pop(0)
 currentMaxLen = 2
+right = True
+left = True
 while currentMaxLen > 1:
     currentMaxLen = 0
     for w in range(len(reachedTimes)):
-        if len(reachedTimes[w][max(len(reachedTimes[w])-1, 0)]) == 2:
-            break
-        if len(reachedTimes[w][len(reachedTimes[w])-1]) == 1 and reachedTimes[w][len(reachedTimes[w])-1] != [tempTime]:
-            if len(reachedTimes[w])> currentMaxLen and reachedTimes[w][len(reachedTimes[w])-1][0] < tempTime:
-                tempTime2 = reachedTimes[w][len(reachedTimes[w])-1][0]
-                currentMaxLen = len(reachedTimes[w])
-                tempQuader = len(reachedTimes)-w
+        if right:
+            try:
+                if len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1][max(len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])-1, 0)]) == 2:
+                    right=False
+                    continue
+                if len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])-1]) == 1 and reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])-1] != [tempTime]:
+                    if len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])> currentMaxLen and reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])-1][0] < tempTime:
+                        tempTime2 = reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])-1][0]
+                        currentMaxLen = len(reachedTimes[w+quadersForPrinting[len(quadersForPrinting)-1]-1])
+                        tempQuader = len(reachedTimes)-w+quadersForPrinting[len(quadersForPrinting)-1]-1
+            except Exception:
+                right=False
+        if left:
+            try:
+                if len(reachedTimes[w-quadersForPrinting[len(quadersForPrinting)-1]-1][max(len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])-1, 0)]) == 2:
+                    right=False
+                    continue
+                if len(reachedTimes[w-quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])-1]) == 1 and reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])-1] != [tempTime]:
+                    if len(reachedTimes[w-quadersForPrinting[len(quadersForPrinting)-1]-1])> currentMaxLen and reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])-1][0] < tempTime:
+                        tempTime2 = reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1][len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])-1][0]
+                        currentMaxLen = len(reachedTimes[1-w-quadersForPrinting[len(quadersForPrinting)-1]-1])
+                        tempQuader = len(reachedTimes)-1-w-quadersForPrinting[len(quadersForPrinting)-1]-1
+            except Exception:
+                left=False
     tempTime = tempTime2
     timesForPrinting.append(tempTime)
     quadersForPrinting.append(tempQuader)
     copy = deepcopy(reachedTimes)
+    right=True
+    left=True
     for t in reachedTimes:
         for z in t:
             for u in z:
