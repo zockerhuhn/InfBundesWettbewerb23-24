@@ -4,7 +4,7 @@ quaderIsOpen = []
 quaderTimes = []
 reachedTimes = []
 isActive = []
-with open("input.txt", 'r') as inputs:
+with open("grabmal4.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
     for value in inputs:
         if value != '':
@@ -62,7 +62,7 @@ while not found:
                 if i+2==len(quaderIsOpen) and quaderIsOpen[i+1]:
                     found=True
                     reachedTimes[i+1].append([loop])
-                if i == 1 and (reachedTimes[i-1] == [] or len(reachedTimes[i-1][len(reachedTimes[i-1])-1]) == 2):
+                if i == 1 and (reachedTimes[i-1] == [] or len(reachedTimes[i-1][len(reachedTimes[i-1])-1]) == 2) and quaderIsOpen[i-1]:
                     reachedTimes[i-1].append([loop])
     loop+=1
 print("finished way calc, starting output calc...")
