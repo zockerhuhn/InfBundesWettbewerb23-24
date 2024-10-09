@@ -4,7 +4,6 @@ quaderIsOpen = []
 quaderTimes = []
 reachedTimes = []
 isActive = []
-changeHappenedAt = []
 with open("grabmal5.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
     for value in inputs:
@@ -60,19 +59,14 @@ while not found:
                     continue
                 if reachedTimes[i] == [] or len(reachedTimes[i][len(reachedTimes[i])-1]) == 2:
                     reachedTimes[i].append([loop])
-                    if loop not in changeHappenedAt:
-                        changeHappenedAt.append(loop)
                 if i+2==len(quaderIsOpen) and quaderIsOpen[i+1]:
                     found=True
                     reachedTimes[i+1].append([loop])
-                    if loop not in changeHappenedAt:
-                        changeHappenedAt.append(loop)
                 if i == 1 and (reachedTimes[i-1] == [] or len(reachedTimes[i-1][len(reachedTimes[i-1])-1]) == 2):
                     reachedTimes[i-1].append([loop])
     loop+=1
-print(reachedTimes)
-changeHappenedAt.reverse()
-tempTime = changeHappenedAt[0]
+print("finished way calc, starting output calc...")
+tempTime = reachedTimes[len(reachedTimes)-1][0][0]
 tempQuader = len(reachedTimes)-1
 timesForPrinting = [tempTime]
 quadersForPrinting = [tempQuader+1]
