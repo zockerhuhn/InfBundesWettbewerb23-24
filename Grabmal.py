@@ -5,7 +5,7 @@ quaderTimes = []
 reachedTimes = []
 isActive = []
 changeHappenedAt = []
-with open("grabmal3.txt", 'r') as inputs:
+with open("grabmal4.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
     for value in inputs:
         if value != '':
@@ -78,11 +78,10 @@ timesForPrinting = [tempTime]
 quadersForPrinting = [tempQuader+1]
 # reachedTimes.reverse()
 # reachedTimes.pop(0)
-currentMaxLen = 2
+currentMaxLen = 100000
 right = True
 left = True
 while currentMaxLen > 1:
-    currentMaxLen = 0
     startingPoint = quadersForPrinting[len(quadersForPrinting)-1]-1
     for w in range(1, len(reachedTimes)):
         if right:
@@ -90,7 +89,7 @@ while currentMaxLen > 1:
                 if len(reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1]) == 2:
                     right=False
                 elif len(reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1]) == 1 and reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1] != [tempTime]:
-                    if len(reachedTimes[w+startingPoint]) < currentMaxLen and reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0] < tempTime:
+                    if len(reachedTimes[w+startingPoint]) <= currentMaxLen and reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0] < tempTime:
                         tempTime2 = reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0]
                         currentMaxLen = len(reachedTimes[w+startingPoint])
                         tempQuader = w+startingPoint+1
@@ -101,7 +100,7 @@ while currentMaxLen > 1:
                 if len(reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1]) == 2:
                     left=False
                 if len(reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1]) == 1 and reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1] != [tempTime]:
-                    if len(reachedTimes[startingPoint-w])> currentMaxLen and reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1][0] < tempTime:
+                    if len(reachedTimes[startingPoint-w]) < currentMaxLen and reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1][0] < tempTime:
                         tempTime2 = reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1][0]
                         currentMaxLen = len(reachedTimes[startingPoint-w])
                         tempQuader = startingPoint-w+1
@@ -110,19 +109,19 @@ while currentMaxLen > 1:
     tempTime = tempTime2
     timesForPrinting.append(tempTime)
     quadersForPrinting.append(tempQuader)
-    copy = deepcopy(reachedTimes)
+    # copy = deepcopy(reachedTimes)
     right=True
     left=True
     for t in reachedTimes:
         for z in t:
             for u in z:
-                if u < tempTime:
+                if u >= tempTime:
                     z.remove(u)
             if [] in z:
                 z.remove([])
         if [] in t:
             t.remove([])
-    reachedTimes = deepcopy(copy)
+    # reachedTimes = deepcopy(copy)
 timesForPrinting.reverse()
 quadersForPrinting.reverse()
 tempQuader = deepcopy(quadersForPrinting)
