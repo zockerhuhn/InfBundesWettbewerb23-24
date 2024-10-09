@@ -52,9 +52,7 @@ while not found:
             else:
                 quaderIsOpen[x]=True
     if not quaderIsOpenCopy == quaderIsOpen:
-        for i in range(len(quaderIsOpen)):
-            if i == 0 or i == len(quaderIsOpen)-1:
-                continue
+        for i in range(1, len(quaderIsOpen)-1):
             if quaderIsOpen[i] and (quaderIsOpen[i+1] or quaderIsOpen[i-1]):
                 if find_active(i):
                     isActive[i]=True
