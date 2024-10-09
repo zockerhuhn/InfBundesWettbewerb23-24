@@ -8,7 +8,8 @@ changeHappenedAt = []
 with open("input.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
     for value in inputs:
-        quaderTimes.append(int(value))
+        if value != '':
+            quaderTimes.append(int(value))
 for e in range(len(quaderTimes)):
     quaderIsOpen.append(False)
     reachedTimes.append([])
