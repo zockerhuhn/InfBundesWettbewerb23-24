@@ -1,10 +1,12 @@
 from copy import deepcopy
+import sys
 
+numberToStart= str(sys.argv[1])
 quaderIsOpen = []
 quaderTimes = []
 reachedTimes = []
 isActive = []
-with open("grabmal4.txt", 'r') as inputs:
+with open(f"grabmal{numberToStart}.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
     for value in inputs:
         if value != '':
@@ -13,6 +15,7 @@ for e in range(len(quaderTimes)):
     quaderIsOpen.append(False)
     reachedTimes.append([])
     isActive.append(False)
+
 
 def find_active(startNr, searchLeft=True, searchRight=True):
     if isActive[startNr]:
@@ -34,7 +37,7 @@ def find_active(startNr, searchLeft=True, searchRight=True):
             searchLeft=False 
         if not (searchLeft or searchRight):
                 return False
-        
+
 
 found = False
 loop = 1

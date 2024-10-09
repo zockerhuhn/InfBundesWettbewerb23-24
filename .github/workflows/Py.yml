@@ -6,6 +6,9 @@ on:
       file:
         required: true
         type: string
+      grabmalNR:
+        required: true
+        type: string
 
 permissions: write-all
 
@@ -26,4 +29,4 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: execute py script # run file
         run: |
-          time python ${{ inputs.file }}
+          time python ${{ inputs.file }} ${{inputs.grabmalNR}}
