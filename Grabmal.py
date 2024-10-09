@@ -64,7 +64,7 @@ while not found:
                     changeHappenedAt.append(loop)
             if i+2==len(quaderIsOpen) and quaderIsOpen[i+1]:
                 found=True
-                reachedTimes[i+1].append(loop)
+                reachedTimes[i+1].append([loop])
                 if loop not in changeHappenedAt:
                     changeHappenedAt.append(loop)
             if i == 1 and (reachedTimes[i-1] == [] or len(reachedTimes[i-1][len(reachedTimes[i-1])-1]) == 2):
@@ -124,7 +124,6 @@ while currentMaxLen > 1:
             t.remove([])
     reachedTimes = deepcopy(copy)
 timesForPrinting.reverse()
-quadersForPrinting[0]+=1
 quadersForPrinting.reverse()
 tempQuader = deepcopy(quadersForPrinting)
 tempTime = deepcopy(timesForPrinting)
