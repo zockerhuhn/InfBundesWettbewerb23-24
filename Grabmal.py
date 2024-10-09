@@ -46,7 +46,7 @@ while not found:
         if loop%quaderTimes[x]==0:
             if quaderIsOpen[x]:
                 quaderIsOpen[x]=False
-                if isActive[x] and not (x==0 and reachedTimes[x]== []):
+                if isActive[x] and not reachedTimes[x]== []:
                     reachedTimes[x][len(reachedTimes[x])-1].append(loop)
                 isActive[x]=False
             else:
