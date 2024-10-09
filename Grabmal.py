@@ -31,10 +31,10 @@ def find_active(startNr, searchLeft=True, searchRight=True):
                 return True
             if not quaderIsOpen[startNr-1-q]:
                 searchLeft=False
-            if not (searchLeft or searchRight):
-                return False
-        except Exception:
+        except Exeption:
             pass
+        if not (searchLeft or searchRight):
+                return False
         
 
 found = False
