@@ -8,6 +8,7 @@ reachedTimes = []
 isActive = []
 with open(f"grabmal{numberToStart}.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
+    inputs.pop(0)
     for value in inputs:
         if value != '':
             quaderTimes.append(int(value))
