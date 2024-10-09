@@ -3,7 +3,7 @@ from copy import deepcopy
 quaderIsOpen = []
 quaderTimes = []
 wasReached = []
-with open("grabmal4.txt", 'r') as inputs:
+with open("grabmal3.txt", 'r') as inputs:
     inputs = inputs.read().split("\n")
     for value in inputs:
         quaderTimes.append(int(value))
