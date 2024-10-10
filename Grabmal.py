@@ -70,54 +70,58 @@ while not found:
                     reachedTimes[i-1].append([loop])
     loop+=1
 print("finished way calc, starting output calc...")
+# with open('test.txt', 'w') as logFile:
+#     logFile.write(str(reachedTimes))
+# exit()
 tempTime = reachedTimes[len(reachedTimes)-1][0][0]
-tempQuader = len(reachedTimes)-1
+tempQuader = len(reachedTimes)
 timesForPrinting = [tempTime]
-quadersForPrinting = [tempQuader+1]
-currentMaxLen = 100000
+quadersForPrinting = [tempQuader]
 right = True
 left = True
-while currentMaxLen > 1 and tempQuader != 1:
-    currentMaxLen = 100000
+end = False
+while not end:
     startingPoint = quadersForPrinting[len(quadersForPrinting)-1]-1
     for w in range(1, len(reachedTimes)):
         if right:
             try:
                 if len(reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1]) == 2 or reachedTimes[startingPoint+w] == []:
                     right=False
-                elif len(reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1]) == 1 and reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1] != [tempTime]:
-                    if len(reachedTimes[w+startingPoint]) <= currentMaxLen and reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0] < tempTime:
+                elif reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0] != tempTime:
                         tempTime2 = reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0]
-                        currentMaxLen = len(reachedTimes[w+startingPoint])
                         tempQuader = w+startingPoint+1
-            except Exception:
+            except IndexError:
                 right=False
         if left:
             try:
                 if len(reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1]) == 2:
                     left=False
-                if len(reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1]) == 1 and (reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1] != [tempTime] or startingPoint-w == 0):
-                    if (len(reachedTimes[startingPoint-w]) < currentMaxLen or startingPoint-w == 0) and reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1][0] <= tempTime:
+                elif startingPoint-w == 0 or reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1][0] != tempTime:
+                        if startingPoint-w == 0:
+                            end = True
+                            break
                         tempTime2 = reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1][0]
-                        currentMaxLen = len(reachedTimes[startingPoint-w])
                         tempQuader = startingPoint-w+1
-            except Exception:
+            except IndexError:
                 left=False
     tempTime = tempTime2
     timesForPrinting.append(tempTime)
     quadersForPrinting.append(tempQuader)
     right=True
     left=True
-    # while deepcopy(reachedTimes) != 
-    for t in reachedTimes:
-        for z in t:
-            for u in z:
-                if u > tempTime:
-                    z.remove(u)
-            while [] in z:
-                z.remove([])
-        while [] in t:
-            t.remove([])
+    smthChanged=True
+    while smthChanged:
+        smthChanged=False
+        for t in reachedTimes:
+            for z in t:
+                for u in z:
+                    if u > tempTime:
+                        z.remove(u)
+                        smthChanged=True
+                while [] in z:
+                    z.remove([])
+            while [] in t:
+                t.remove([])
 timesForPrinting.reverse()
 quadersForPrinting.reverse()
 tempQuader = deepcopy(quadersForPrinting)
@@ -135,8 +139,5 @@ for a in range(len(timesForPrinting)):
         print(f"warte {timesForPrinting[a]} Minuten, dann geh zu Quader {quadersForPrinting[a]}")
         continue
     if timesForPrinting[a]-timesForPrinting[a-1] == 0:
-        # timesForPrinting.pop(a)
-        # quadersForPrinting.pop(a)
-        # continue
-        pass
+        continue
     print(f"warte {timesForPrinting[a]-timesForPrinting[a-1]} Minuten, dann geh zu Quader {quadersForPrinting[a]}")
