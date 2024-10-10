@@ -136,8 +136,8 @@ quadersForPrinting = deepcopy(tempQuader)
 timesForPrinting = deepcopy(tempTime)
 for a in range(len(timesForPrinting)):
     if a==0:
-        print(f"warte {timesForPrinting[a]} Minuten, dann geh zu Quader {quadersForPrinting[a]}")
+        print(f"warte {timesForPrinting[a]} Minuten, dann geh zu Quader {quadersForPrinting[a]+1}")
         continue
     if timesForPrinting[a]-timesForPrinting[a-1] == 0:
         continue
-    print(f"warte {timesForPrinting[a]-timesForPrinting[a-1]} Minuten, dann geh zu Quader {quadersForPrinting[a]}")
+    print(f"warte {timesForPrinting[a]-timesForPrinting[a-1]} Minuten, dann geh zu Quader {quadersForPrinting[a]+1}")
