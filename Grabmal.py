@@ -137,5 +137,6 @@ for a in range(len(timesForPrinting)):
     if timesForPrinting[a]-timesForPrinting[a-1] == 0:
         # timesForPrinting.pop(a)
         # quadersForPrinting.pop(a)
-        continue
+        # continue
+        pass
     print(f"warte {timesForPrinting[a]-timesForPrinting[a-1]} Minuten, dann geh zu Quader {quadersForPrinting[a]}")
