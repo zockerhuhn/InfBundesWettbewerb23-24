@@ -81,52 +81,54 @@ while not found:
     loop+=1
 print("finished way calc, starting output calc...") #Jetzt wurde ein Array erstellt welches nur erreichbare Zeiten enthält und zum AUsgang führt, es muss aber noch ausgewertet werden um den schnellsten Weg mit den wenigst möglichsten Zügen zu finden
 tempTime = reachedTimes[len(reachedTimes)-1][0][0]  #Speicher die erste Zeit wo der letzte Quader erreicht wurde
-tempQuader = len(reachedTimes)-1    #Speicher den letzten Quader
+tempQuader = len(reachedTimes)    #Speicher den letzten Quader
 timesForPrinting = [tempTime]       #Dieses Array enthält zum Schluss die Zeiten des finalen Wegs
-quadersForPrinting = [tempQuader+1] #Dieses Array enthält zum Schluss die Quader des finalen Wegs
-currentMaxLen = 100000
+quadersForPrinting = [tempQuader] #Dieses Array enthält zum Schluss die Quader des finalen Wegs
 right = True
 left = True
-while currentMaxLen > 1 and tempQuader != 1:    #Abbrechen wenn der 1. Quader erreicht wurde oder der Ausgang bereits erreicht werden kann
-    currentMaxLen = 100000
+end = False
+while not end:
     startingPoint = quadersForPrinting[len(quadersForPrinting)-1]-1
     for w in range(1, len(reachedTimes)):
         if right:
             try:
                 if len(reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1]) == 2 or reachedTimes[startingPoint+w] == []:    #Falls der rechte Nachbar gerade nicht erreichbar war nicht mehr rechts gucken
                     right=False
-                elif len(reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1]) == 1 and reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1] != [tempTime]:   #Sonst falls der Nachbar erreichbar ist und nicht die selbe Zeit zum erreichen hat als bereits gefunden wurde
-                    if len(reachedTimes[w+startingPoint]) <= currentMaxLen and reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0] < tempTime:   #Sichergehen dass der ausgewählte Quader nicht ein Umweg ist
+                elif reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0] != tempTime:    #Sonst falls der Nachbar nicht die selbe Zeit zum erreichen hat als bereits gefunden wurde
                         tempTime2 = reachedTimes[w+startingPoint][len(reachedTimes[w+startingPoint])-1][0]
-                        currentMaxLen = len(reachedTimes[w+startingPoint])
                         tempQuader = w+startingPoint+1
-            except Exception:
+            except IndexError:
                 right=False
         if left:
             try:
                 if len(reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1]) == 2:   #Falls der linke Nachbar gerade nicht erreichbar war nicht mehr links gucken
                     left=False
-                if len(reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1]) == 1 and (reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1] != [tempTime] or startingPoint-w == 0):   #Dasselbe wie rechts aber wenn der ausgewählte Quader der 1. ist dann wird ignoriert ob die Zeit gleich ist
-                    if (len(reachedTimes[startingPoint-w]) < currentMaxLen or startingPoint-w == 0) and reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1][0] <= tempTime: #Dasselbe wie bei rechts nur dass wieder der Vergleich von tempTime irrelevant ist wenn es sich um den 1. Quader handelt
+                elif startingPoint-w == 0 or reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1][0] != tempTime:
+                        if startingPoint-w == 0:
+                            end = True
+                            break
                         tempTime2 = reachedTimes[startingPoint-w][len(reachedTimes[startingPoint-w])-1][0]
-                        currentMaxLen = len(reachedTimes[startingPoint-w])
                         tempQuader = startingPoint-w+1
-            except Exception:
+            except IndexError:
                 left=False
     tempTime = tempTime2
     timesForPrinting.append(tempTime)
     quadersForPrinting.append(tempQuader)
     right=True
     left=True
-    for t in reachedTimes:  #Löschen von Zeiten die größer als die letzte gefundene Zeit sind damit das Array die Schließzeiten löscht wenn das Array mittlerweile Offen war
-        for z in t:
-            for u in z:
-                if u > tempTime:
-                    z.remove(u)
-            while [] in z:
-                z.remove([])
-        while [] in t:
-            t.remove([])
+    smthChanged=True
+    while smthChanged:
+        smthChanged=False
+        for t in reachedTimes:  #Löschen von Zeiten die größer als die letzte gefundene Zeit sind damit das Array die Schließzeiten löscht wenn das Array mittlerweile Offen war
+            for z in t:
+                for u in z:
+                    if u > tempTime:
+                        z.remove(u)
+                        smthChanged=True
+                while [] in z:
+                    z.remove([])
+            while [] in t:
+                t.remove([])
 timesForPrinting.reverse()
 quadersForPrinting.reverse()
 tempQuader = deepcopy(quadersForPrinting)
@@ -139,8 +141,8 @@ quadersForPrinting = deepcopy(tempQuader)
 timesForPrinting = deepcopy(tempTime)
 for a in range(len(timesForPrinting)):
     if a==0:    #Der erste Quader hat keine vorherige Zeit zum vergleichen
-        print(f"warte {timesForPrinting[a]} Minuten, dann geh zu Quader {quadersForPrinting[a]}")
+        print(f"warte {timesForPrinting[a]} Minuten, dann geh zu Quader {quadersForPrinting[a]+1}")
         continue
     if timesForPrinting[a]-timesForPrinting[a-1] == 0:  #theoretisch müsste dieser case nie passieren wegen dem cleanup
         continue
-    print(f"warte {timesForPrinting[a]-timesForPrinting[a-1]} Minuten, dann geh zu Quader {quadersForPrinting[a]}") #Nutze die Differenz zur vorherigen Zeit
+    print(f"warte {timesForPrinting[a]-timesForPrinting[a-1]} Minuten, dann geh zu Quader {quadersForPrinting[a]+1}")
