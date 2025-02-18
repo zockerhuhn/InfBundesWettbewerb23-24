@@ -54,9 +54,11 @@ found = False
 loop = 1
 while not found:
     isActive[0]=True
+    smthChanged=False
     quaderIsOpenCopy = deepcopy(quaderIsOpen)
     for x in range(len(quaderIsOpen)):  #quaderIsOpen aktualisieren und schließende Quader deaktivieren
         if loop%quaderTimes[x]==0:
+            smthChanged=True
             if quaderIsOpen[x]:
                 quaderIsOpen[x]=False
                 if isActive[x] and not reachedTimes[x]== [] and len(reachedTimes[x][len(reachedTimes[x])-1]) == 1:  #Quader deaktivieren wenn er aktiv ist. Der erste Quader wird anders gehandelt und kann leer sein
@@ -64,7 +66,7 @@ while not found:
                 isActive[x]=False
             else:
                 quaderIsOpen[x]=True
-    if not quaderIsOpenCopy == quaderIsOpen:    #Quader nur überprüfen wenn sich Quader geändert haben
+    if smthChanged:    #Quader nur überprüfen wenn sich Quader geändert haben
         for i in range(1, len(quaderIsOpen)-1):
             if quaderIsOpen[i] and (quaderIsOpen[i+1] or quaderIsOpen[i-1]):    #Nur Quader die min 1 offenen Nachbarn haben werden überprüft
                 if find_active(i):
